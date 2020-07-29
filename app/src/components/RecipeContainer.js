@@ -12,8 +12,10 @@ const RecipeContainer = (props) => {
 				marginTop: '50px',
 			}}
 		>
-			{props.recipes.map((recipe) => {
-				return <RecipeCard recipe={recipe} key={recipe.recipe.label} />;
+			{props.recipes.map((recipe, index) => {
+				return (
+					<RecipeCard recipe={recipe} key={`${recipe.recipe.label}-${index}`} />
+				);
 			})}
 		</Flex>
 	);

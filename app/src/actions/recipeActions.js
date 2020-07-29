@@ -7,13 +7,13 @@ export const MORE_RESULTS = 'MORE_RESULTS';
 const API_KEY = process.env.REACT_APP_API_KEY;
 const APP_ID = process.env.REACT_APP_APP_ID;
 
-export const fetchRecipes = (queryString) => (dispatch, getState) => {
+export const fetchRecipes = (queryString, dietType) => (dispatch, getState) => {
 	// set isFetching to true and display loading message
 	dispatch({ type: FETCH_RECIPES_START });
 	//make API request
 	axios
 		.get(
-			`https://api.edamam.com/search?q=${queryString}&app_id=${APP_ID}&app_key=${API_KEY}&from=${
+			`https://api.edamam.com/search?q=${queryString}&diet=${dietType}&app_id=${APP_ID}&app_key=${API_KEY}&from=${
 				getState().fromPage || 0
 			}`
 		)

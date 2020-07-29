@@ -8,13 +8,16 @@ const RecipeCard = ({ recipe }) => {
 			<Heading as='h2' sx={{ marginBottom: '10px' }}>
 				{recipe.recipe.label}
 			</Heading>
-			<Image src={recipe.recipe.image} sx={{ marginBottom: '10px' }} />
+			<Image
+				src={recipe.recipe.image}
+				sx={{ marginBottom: '10px', width: '100%', height: 'auto' }}
+			/>
 			<Text sx={{ marginTop: '10px' }}>
 				Serves: {Math.floor(recipe.recipe.yield)}
 			</Text>
 			<Box as='ul'>
-				{recipe.recipe.ingredientLines.map((item) => {
-					return <li key={item}>{item}</li>;
+				{recipe.recipe.ingredientLines.map((item, index) => {
+					return <li key={`${item}-${index}`}>{item}</li>;
 				})}
 			</Box>
 			<Link href={recipe.recipe.url} target='_blank'>

@@ -1,16 +1,17 @@
 /** @jsx jsx */
 import React, { useState, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { jsx, Label, Input, Flex, Button, Text } from 'theme-ui';
+import { jsx, Label, Input, Flex, Button, Text, Select } from 'theme-ui';
 import { fetchRecipes, moreResults } from '../actions/recipeActions';
 
 const SearchForm = (props) => {
 	const [queryString, setQueryString] = useState('');
+	const [selectValue, setSelectValue] = useState('balanced');
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (queryString !== '') {
-			props.fetchRecipes(queryString.replace(/[ ,]+/g, ','));
+			props.fetchRecipes(queryString.replace(/[ ,]+/g, ','), selectValue);
 		}
 	};
 
@@ -40,7 +41,6 @@ const SearchForm = (props) => {
 				sx={{
 					marginY: ['50px'],
 					flexDirection: 'row',
-					// alignItems: 'center',
 					justifyContent: 'center',
 					padding: '0 10px',
 					maxWidth: ['95%', '90%', '65%'],
@@ -50,7 +50,6 @@ const SearchForm = (props) => {
 					htmlFor='search'
 					sx={{
 						marginRight: [0, '50px'],
-						// marginBottom: ['20px', 0],
 						display: 'flex',
 						flexDirection: ['column', 'row'],
 					}}
@@ -62,6 +61,29 @@ const SearchForm = (props) => {
 						name='search'
 						id='search'
 					/>
+				</Label>
+				<Label
+					htmlFor='diet'
+					sx={{
+						marginRight: [0, '50px'],
+						display: 'flex',
+						flexDirection: ['column', 'row'],
+					}}
+				>
+					Diet Type
+					<Select
+						name='diet'
+						id='diet'
+						value={selectValue}
+						onChange={(e) => setSelectValue(e.target.value)}
+					>
+						<option value='balanced'>Balanced</option>
+						<option value='high-protein'>High Protein</option>
+						<option value='high-fiber'>High Fiber</option>
+						<option value='low-fat'>Low Fat</option>
+						<option value='low-carb'>Low Carb</option>
+						<option value='low-sodium'>Low Sodium</option>
+					</Select>
 				</Label>
 				<Button type='submit' sx={{ marginLeft: '15px' }}>
 					Search Recipes
