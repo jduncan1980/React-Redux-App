@@ -1,15 +1,23 @@
 import React from 'react';
-import { Container, Flex } from 'theme-ui';
+import { Container, Flex, Box } from 'theme-ui';
 import SearchForm from './components/SearchForm';
 import RecipeContainer from './components/RecipeContainer';
 import Header from './components/Header';
 import Instructions from './components/Instructions';
+import Footer from './components/Footer';
 
 function App() {
 	return (
-		<React.Fragment>
+		<Box
+			sx={{
+				display: 'flex',
+				flexDirection: 'column',
+				alignItems: 'center',
+				minHeight: '100vh',
+			}}
+		>
 			<Header />
-			<Container>
+			<Container as='main'>
 				<Flex
 					sx={{
 						flexDirection: 'column',
@@ -27,7 +35,8 @@ function App() {
 				</Flex>
 				<RecipeContainer />
 			</Container>
-		</React.Fragment>
+			<Footer />
+		</Box>
 	);
 }
 

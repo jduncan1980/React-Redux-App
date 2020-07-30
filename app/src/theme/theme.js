@@ -46,6 +46,7 @@ const dark = {
 			flexDirection: 'column',
 			alignItems: 'center',
 			width: ['100%', null, null, null, '80%'],
+			// minHeight: '100vh',
 		},
 	},
 	cards: {
@@ -65,6 +66,7 @@ const dark = {
 			lineHeight: 'body',
 			fontWeight: 'body',
 			boxSizing: 'border-box',
+			minHeight: '100vh',
 		},
 		a: {
 			margin: '10px',
