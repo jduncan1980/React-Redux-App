@@ -7,8 +7,12 @@ import { Provider } from 'react-redux';
 import theme from './theme/theme';
 import App from './App';
 import { recipeReducer } from './reducers/recipeReducer';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-const store = createStore(recipeReducer, applyMiddleware(thunk));
+const store = createStore(
+	recipeReducer,
+	composeWithDevTools(applyMiddleware(thunk))
+);
 
 ReactDOM.render(
 	<React.StrictMode>

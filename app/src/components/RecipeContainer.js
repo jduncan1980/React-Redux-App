@@ -10,6 +10,7 @@ const RecipeContainer = (props) => {
 				flexWrap: 'wrap',
 				justifyContent: 'space-evenly',
 				marginTop: '50px',
+				width: '100%',
 			}}
 		>
 			{props.recipes.map((recipe, index) => {

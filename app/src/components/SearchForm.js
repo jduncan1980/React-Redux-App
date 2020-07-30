@@ -1,7 +1,16 @@
 /** @jsx jsx */
 import React, { useState, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { jsx, Label, Input, Flex, Button, Text, Select } from 'theme-ui';
+import {
+	jsx,
+	Input,
+	Flex,
+	Button,
+	Text,
+	Select,
+	Field,
+	Spinner,
+} from 'theme-ui';
 import { fetchRecipes, moreResults } from '../actions/recipeActions';
 
 const SearchForm = (props) => {
@@ -18,19 +27,24 @@ const SearchForm = (props) => {
 	const prevPage = () => {
 		if (queryString !== '') {
 			props.moreResults(props.fromPage - 10);
-			props.fetchRecipes(queryString.replace(/[ ,]+/g, ','));
+			props.fetchRecipes(queryString.replace(/[ ,]+/g, ','), selectValue);
 		}
 	};
 
 	const nextPage = () => {
 		if (queryString !== '') {
 			props.moreResults(props.fromPage + 10);
-			props.fetchRecipes(queryString.replace(/[ ,]+/g, ','));
+			props.fetchRecipes(queryString.replace(/[ ,]+/g, ','), selectValue);
 		}
 	};
 
 	if (props.isFetching) {
-		return <span>**Loading Results**</span>;
+		return (
+			<React.Fragment>
+				<span sx={{ fontSize: 3, marginY: '20px' }}>**Loading Results**</span>
+				<Spinner />
+			</React.Fragment>
+		);
 	}
 
 	return (
@@ -40,55 +54,44 @@ const SearchForm = (props) => {
 				onSubmit={handleSubmit}
 				sx={{
 					marginY: ['50px'],
-					flexDirection: 'row',
-					justifyContent: 'center',
-					padding: '0 10px',
-					maxWidth: ['95%', '90%', '65%'],
+					flexDirection: ['column', 'row'],
+					justifyContent: 'space-evenly',
+					alignItems: ['center', 'stretch'],
+					padding: '20px 10px',
+					width: ['95%', '90%', '65%'],
 				}}
 			>
-				<Label
-					htmlFor='search'
-					sx={{
-						marginRight: [0, '50px'],
-						display: 'flex',
-						flexDirection: ['column', 'row'],
-					}}
+				<Field
+					as={Input}
+					name='search'
+					label='Search By Ingredient(s)'
+					value={queryString}
+					onChange={(e) => setQueryString(e.target.value)}
+					sx={{ marginBottom: ['20px', 0] }}
+				/>
+
+				<Field
+					as={Select}
+					name='diet'
+					label='Diet Type'
+					value={selectValue}
+					onChange={(e) => setSelectValue(e.target.value)}
 				>
-					Search By Ingredient(s)
-					<Input
-						value={queryString}
-						onChange={(e) => setQueryString(e.target.value)}
-						name='search'
-						id='search'
-					/>
-				</Label>
-				<Label
-					htmlFor='diet'
-					sx={{
-						marginRight: [0, '50px'],
-						display: 'flex',
-						flexDirection: ['column', 'row'],
-					}}
+					<option value='balanced'>Balanced</option>
+					<option value='high-protein'>High Protein</option>
+					<option value='high-fiber'>High Fiber</option>
+					<option value='low-fat'>Low Fat</option>
+					<option value='low-carb'>Low Carb</option>
+					<option value='low-sodium'>Low Sodium</option>
+				</Field>
+				<Button
+					type='submit'
+					sx={{ marginLeft: [0, '15px'], marginTop: ['20px', 0] }}
 				>
-					Diet Type
-					<Select
-						name='diet'
-						id='diet'
-						value={selectValue}
-						onChange={(e) => setSelectValue(e.target.value)}
-					>
-						<option value='balanced'>Balanced</option>
-						<option value='high-protein'>High Protein</option>
-						<option value='high-fiber'>High Fiber</option>
-						<option value='low-fat'>Low Fat</option>
-						<option value='low-carb'>Low Carb</option>
-						<option value='low-sodium'>Low Sodium</option>
-					</Select>
-				</Label>
-				<Button type='submit' sx={{ marginLeft: '15px' }}>
 					Search Recipes
 				</Button>
 			</Flex>
+
 			<Flex as='div' sx={{ flexDirection: 'column', alignItems: 'center' }}>
 				{props.toPage && (
 					<Text sx={{ marginBottom: '20px' }}>
@@ -102,7 +105,7 @@ const SearchForm = (props) => {
 						</Button>
 					)}
 					{props.more && (
-						<Button onClick={nextPage} sx={{ margin: '15px' }}>
+						<Button onClick={nextPage} sx={{ margin: ['15px'] }}>
 							Next Page
 						</Button>
 					)}

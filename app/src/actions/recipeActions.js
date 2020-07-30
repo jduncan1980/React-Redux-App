@@ -13,7 +13,7 @@ export const fetchRecipes = (queryString, dietType) => (dispatch, getState) => {
 	//make API request
 	axios
 		.get(
-			`https://api.edamam.com/search?q=${queryString}&diet=${dietType}&app_id=${APP_ID}&app_key=${API_KEY}&from=${
+			`https://cors-anywhere.herokuapp.com/https://api.edamam.com/search?q=${queryString}&diet=${dietType}&app_id=${APP_ID}&app_key=${API_KEY}&from=${
 				getState().fromPage || 0
 			}`
 		)
@@ -21,7 +21,10 @@ export const fetchRecipes = (queryString, dietType) => (dispatch, getState) => {
 			console.log(res);
 			dispatch({ type: FETCH_RECIPES_SUCCESS, payload: res.data });
 		})
-		.catch((err) => console.log(err));
+		.catch((err) => {
+			console.log(err);
+			dispatch({ type: FETCH_RECIPES_ERROR, payload: err });
+		});
 };
 
 export const moreResults = (results) => (dispatch) => {

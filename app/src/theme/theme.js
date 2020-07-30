@@ -2,7 +2,7 @@ const dark = {
 	breakpoints: ['600px', '900px', '1200px', '1800px'],
 	colors: {
 		text: '#fff',
-		background: '#060606',
+		background: '#1b0b30',
 		primary: '#3cf',
 		secondary: '#e0f',
 		muted: '#191919',
@@ -45,7 +45,7 @@ const dark = {
 			display: 'flex',
 			flexDirection: 'column',
 			alignItems: 'center',
-			width: ['100%', null, '90%', null, '80%'],
+			width: ['100%', null, null, null, '80%'],
 		},
 	},
 	cards: {
@@ -56,19 +56,30 @@ const dark = {
 			border: '4px solid #e0f',
 			padding: '20px',
 			margin: '30px',
-			width: ['100%', null, '70%', '45%', '30%'],
+			width: ['100%', null, '40%', null, '29%'],
 		},
 	},
 	styles: {
-		// Container: {
-		// 	p: 3,
-		// 	maxWidth: 1024,
-		// },
 		root: {
 			fontFamily: 'body',
 			lineHeight: 'body',
 			fontWeight: 'body',
 			boxSizing: 'border-box',
+		},
+		a: {
+			margin: '10px',
+			marginTop: 'auto',
+			fontSize: [1, 2, 3, 4],
+			textAlign: 'center',
+			display: 'inline-block',
+			textDecoration: 'none',
+			color: 'primary',
+			transition: 'all .3s ease',
+
+			'&:hover': {
+				color: 'secondary',
+				transform: 'scale(1.1)',
+			},
 		},
 	},
 };
